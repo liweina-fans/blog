@@ -1,0 +1,25 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "You can use the [editor on GitHub](https://github.com/liweina-fans/liweina.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liweina-fans/blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liweina-fans/blog/issues"
+  },
+  "homepage": "https://github.com/liweina-fans/blog#readme",
+  "devDependencies": {
+    "vuepress": "^1.0.4"
+  }
+}
