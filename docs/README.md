@@ -1,8 +1,8 @@
 ---
 home: true
-heroImage: /avatar.png
+heroImage: avatar.png
 actionText: 笔记详情 →
-actionLink: /d3/basic
+actionLink: d3/basic
 features:
 - title: 学习笔记
   details: 整理和总结学习的知识，包括但不限于Vue、React、可视化库，还有日常开发踩坑...

@@ -1,7 +1,8 @@
 const sidebarRouter = require('./router');
 
 module.exports = {
-  title: "Lena-博客",
+  base:"/learn/",
+  title: "Lena-学习笔记",
   description: "Good good study, day day up!",
   head:[
       ['link', {rel:'icon',href:'/favicon.ico'}]
@@ -17,7 +18,7 @@ module.exports = {
         text: "掘金专栏",
         link: "https://juejin.im/user/5916ab218d6d8100586bb776/posts"
       },
-      { text: "GitHub", link: "https://github.com/liweina-fans" }
+      { text: "GitHub", link: "https://github.com/liweina-fans/learn" }
     ],
     sidebar:sidebarRouter
   }
