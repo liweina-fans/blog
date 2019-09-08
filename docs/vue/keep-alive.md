@@ -1,3 +1,7 @@
+---
+sidebarDepth: 0
+---
+
 # 利用 keep-alive 实现前进刷新后退读取缓存
 
 ## 需求：
