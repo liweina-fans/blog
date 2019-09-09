@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: avatar.jpeg
+heroImage: /avatar.jpeg
 actionText: 笔记详情 →
 actionLink: d3/basic
 features:
