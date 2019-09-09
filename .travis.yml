@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+    - 12
+cache: yarn
+install:
+    - yarn
+script:
+   - yarn docs:build
+deploy:
+    provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    local-dir: ./docs/.vuepress/dist/
+    target-branch: gh-pages
+    verbose: true
+    on:
+      branch: master
