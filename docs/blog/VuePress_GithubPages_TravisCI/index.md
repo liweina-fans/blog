@@ -53,11 +53,28 @@ yarn blog:build
 
 ```
 .
-├─ docs
-│  ├─ README.md //打开网站后默认访问的文件，之后我们可以作为首页
-│  └─ .vuepress
-│     └─ config.js //VuePress网站必要的配置文件
-└─ package.json
+├── .gitignore
+├── .travis.yml
+├── README.md
+├── _config.yml
+├── deploy.sh
+├── docs
+│   ├── .vuepress
+│   │   ├── config.js  //VuePress网站必要的配置文件
+│   │   ├── public     //放置公共图片，如avatar和favicon.ico
+│   ├── README.md      //打开网站后默认访问的文件，之后我们可以作为首页
+│   ├── blog           //blog、d3、echarts和vue为文档目录
+│   │   ├── VuePress_GithubPages_TravisCI
+│   │   └── license
+│   ├── d3
+│   │   └── basic.md
+│   ├── echarts
+│   │   └── basic.md
+│   └── vue
+│       ├── images
+│       └── keep-alive.md
+├── package.json
+└── yarn.lock
 
 ```
 
@@ -71,7 +88,7 @@ module.exports = {
   title: "Lena-学习笔记", //网站左上角显示的title
   description: "Good good study, day day up!", //网站的描述
   head: [
-    ["link", { rel: "icon", href: "/favicon.ico" }] //网站页卡显示的favicon图片
+    ["link", { rel: "icon", href: "/favicon.ico" }] //网站页卡显示的favicon图片，其存放路径为'docs/.vuepress/public/favicon.ico'
   ],
   markdown: {
     lineNumbers: true //代码里是否显示代码行数
@@ -132,14 +149,14 @@ footer: MIT Licensed | Copyright © 2019-present liweina
 ### star
 如果感觉对您有帮助，请不要吝啬点个star，作者感谢o(￣︶￣)o  liweina
 ```
-有没有感觉自己的网站瞬间档次提高了😆
+**注意**：avatar.jpeg的存放路径为`docs/.vuepress/public/avatar.jpeg`，有没有感觉自己的网站瞬间高大上些了😆
 
 
 ### TravisCI自动化部署
 
 Github仓库已建好，我们的VuePress文档也写好了，那如何部署呢？
 
-1. 脚本部署。在根目录下创建脚本文件`deploy.sh`，每次写完文档执行命令`sh deploy.sh`即可。
+#### 1. 脚本部署。在根目录下创建脚本文件`deploy.sh`，每次写完文档执行命令`sh deploy.sh`即可。
 
 ```sh
 #!/usr/bin/env sh
@@ -166,16 +183,52 @@ cd -
 ```
 有没有发现除了代码仓库提交代码外，还要单独执行部署脚本，那有没有自动化工具，当我向仓库提交代码时，就能自动化部署呢？答案当然是肯定的，咱们继续往下看 :point_down:  
 
-2. 自动化部署
+#### 2. 自动化部署
+
+##### 创建配置文件
+在项目根目录下创建travis-ci的配置文件`.travis.yml`, travis-ci根据这个文件自动编译部署。  
+
+```json
+language: node_js
+node_js:
+    - "lts/*"   //此行需注意使用lts版本的nodejs
+cache: yarn
+install:
+    - yarn
+script:
+   - yarn blog:build
+deploy:
+    provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    local-dir: ./docs/.vuepress/dist/
+    target-branch: gh-pages
+    verbose: true
+    on:
+      branch: master
+```
+
+##### 设置travis-ci.org
+
+1. 获取token。通过登录Github -> settings -> Developer settings -> Personal access tokens -> Generate new token, 依据[travis文档](https://docs.travis-ci.com/user/deployment/pages/),我们需要允许`repo`一项的权限。如下图：
+![token](./images/token.png)  
+
+2. 登录[travis网站](https://travis-ci.org), 个人比较习惯Sign in with Github，之后就可以获取到Github中的仓库列表。打开仓库的`setting`项，在`Environment Variables`条目下添加`GITHUBU_TOKEN`变量，变量值就是上一步获取的token。
 
 
+##### 提交代码到github
+在根目录下输入以下命令：
 
+```js
+git init
+git add .
+git commit -m '{comment}'
+git push -u origin master
+```
+travis-ci检测到项目的提交，就会根据.travis.yml文件去编译项目，最后把生成的静态文件推送到仓库的gh-pages分支，然后访问对应的目录就能看到生成的静态网站。本文生成的[地址](https://liweina-fans.github.io/learn/)。
 
+以后有新的改动，只需要执行最后一步提交代码的命令，travis-ci就会自动编译部署
+::: tip
+总结：搭建该博客网站虽遇到了些问题，但通过查文档还是找到了解决方法，并搭建成功。如果哪里有写的不详细或有缺陷，又或者没有提到可能会遇到的问题，愿与君一起探讨，在此谢过:pray:
+:::
 
-
-.
-+-- docs
-| +-- README.md
-| +-- .vuepress
-+-- config.js
-+-- package.json
