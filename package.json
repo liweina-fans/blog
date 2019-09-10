@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/liweina-fans/blog#readme",
   "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
     "vuepress": "^1.0.4"
   }
 }

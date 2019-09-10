@@ -21,5 +21,6 @@ module.exports = {
       { text: "GitHub", link: "https://github.com/liweina-fans/learn" }
     ],
     sidebar:sidebarRouter
-  }
+  },
+  plugins:['@vuepress/back-to-top']
 };
